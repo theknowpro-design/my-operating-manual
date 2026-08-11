@@ -1,0 +1,144 @@
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--color-bg) 86%, transparent);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.top-nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  min-height: var(--header-height);
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.top-nav-brand {
+  justify-self: start;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  max-width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  transition: opacity var(--transition-fast);
+}
+
+.top-nav-brand:hover {
+  opacity: 0.85;
+}
+
+.top-nav-logo {
+  flex: 0 0 auto;
+  width: auto;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+}
+
+.top-nav-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.top-nav-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+}
+
+.top-nav-tagline {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: var(--leading-tight);
+}
+
+.top-nav-center {
+  justify-self: center;
+}
+
+.top-nav-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (min-width: 1024px) {
+  .top-nav-brand {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .top-nav-center {
+    justify-self: center;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .top-nav-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand actions'
+      'clock clock';
+  }
+
+  .top-nav-brand { grid-area: brand; }
+  .top-nav-center {
+    grid-area: clock;
+    justify-self: stretch;
+    text-align: center;
+  }
+  .top-nav-actions { grid-area: actions; }
+
+  .top-nav-brand {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .top-nav-logo {
+    height: 48px;
+  }
+
+  .top-nav-title {
+    font-size: var(--text-base);
+  }
+}
+
+@media (max-width: 640px) {
+  .top-nav-brand {
+    justify-self: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .top-nav-brand-text {
+    align-items: center;
+    text-align: center;
+  }
+
+  .top-nav-center {
+    justify-self: stretch;
+    width: 100%;
+    text-align: center;
+  }
+
+  .top-nav-logo {
+    height: 48px;
+  }
+}

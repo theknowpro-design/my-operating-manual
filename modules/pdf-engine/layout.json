@@ -1,0 +1,52 @@
+{
+  "page": {
+    "size": "US Letter",
+    "margins": {
+      "top": "0.75in",
+      "bottom": "0.75in",
+      "left": "1in",
+      "right": "1in"
+    }
+  },
+  "cover": {
+    "paddingTop": 48,
+    "paddingBottom": 16,
+    "imageMaxHeight": 786
+  },
+  "chart": {
+    "minHeight": 260,
+    "paddingTop": 12,
+    "paddingBottom": 12,
+    "staticImageMaxHeight": 216,
+    "staticImageMinHeight": 240
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Inter",
+      "body": "Inter"
+    },
+    "sizes": {
+      "h1": 30,
+      "h2": 22,
+      "h3": 16,
+      "body": 13
+    },
+    "lineHeight": 1.5,
+    "paragraphSpacing": 14,
+    "sectionSpacing": 24
+  },
+  "sections": [
+    "Cover Page",
+    "Executive Summary",
+    "Business Model",
+    "Revenue Streams",
+    "Growth Strategy",
+    "Marketing Strategy",
+    "Pricing Model",
+    "Action Plan",
+    "Operational Notes",
+    "Digital Visibility Strategy",
+    "Metadata",
+    "Appendices"
+  ]
+}

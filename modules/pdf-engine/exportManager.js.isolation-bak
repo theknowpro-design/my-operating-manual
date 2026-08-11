@@ -1,0 +1,239 @@
+/**
+ * Export Manager — naming, metadata injection, and PDF save/download helpers.
+ */
+
+import jsPDF from 'jspdf';
+import { generatePdfBlob, generatePdfDocument } from './pdf_engine.js';
+import { mapAllSections } from '../src/pdf-engine/content_mapper.js';
+
+/**
+ * Sanitize a title for safe filenames.
+ * @param {string} title
+ * @returns {string}
+ */
+export function sanitizeTitleForFilename(title) {
+  const cleaned = String(title || 'ProfitPlan')
+    .replace(/[<>:"/\\|?*\u0000-\u001F]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '')
+    .slice(0, 80);
+  return cleaned || 'ProfitPlan';
+}
+
+/**
+ * Format date segment as YYYY-MM-DD.
+ * @param {Date|string|number} [date]
+ * @returns {string}
+ */
+export function formatExportDate(date = new Date()) {
+  const d = date instanceof Date ? date : new Date(date);
+  if (Number.isNaN(d.getTime())) {
+    return formatExportDate(new Date());
+  }
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Build ProfitEngineAI_<Title>_<Date>.pdf
+ * @param {string} [title]
+ * @param {Date|string|number} [date]
+ * @returns {string}
+ */
+export function buildPdfFilename(title, date = new Date()) {
+  const safeTitle = sanitizeTitleForFilename(title);
+  return `ProfitEngineAI_${safeTitle}_${formatExportDate(date)}.pdf`;
+}
+
+/**
+ * Inject standard export metadata into a content/data payload.
+ * @param {object} data
+ * @param {object} [options]
+ * @returns {object}
+ */
+export function injectExportMetadata(data = {}, options = {}) {
+  const mapped = mapAllSections(data);
+  const timestamp = options.timestamp || new Date().toISOString();
+  return {
+    ...data,
+    meta: {
+      ...(data.meta || {}),
+      generatedAt: data.meta?.generatedAt || timestamp,
+      exportedAt: timestamp,
+      exportEngine: 'Profit Engine AI PDF Generator',
+      exportVersion: '1.0.0',
+      ...(options.meta || {}),
+    },
+    exportTitle: options.title || mapped.title,
+    exportFilename: options.filename || buildPdfFilename(options.title || mapped.title, timestamp),
+  };
+}
+
+/**
+ * Trigger a browser download for a Blob.
+ * @param {Blob} blob
+ * @param {string} filename
+ */
+export function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+}
+
+/**
+ * Primary branded PDF generation (Master Layout Spec).
+ * @param {object} plan
+ * @param {object} [options]
+ */
+export async function generateBrandedPdf(plan = {}, options = {}) {
+  const withMeta = injectExportMetadata(plan, options);
+  const content = mapAllSections(withMeta);
+  const filename = options.filename || withMeta.exportFilename || buildPdfFilename(content.title);
+
+  const rendered = await generatePdfDocument({
+    data: withMeta,
+    content,
+    branding: options.branding,
+    layout: options.layout,
+    filename,
+    save: options.save,
+  });
+
+  // New HTML renderer saves inside generatePdfDocument and returns true.
+  if (rendered === true) {
+    return {
+      filename,
+      blob: null,
+      bytes: null,
+      content,
+      doc: null,
+      saved: true,
+    };
+  }
+
+  const { bytes, content: renderedContent, doc } = rendered || {};
+  const blob = new Blob([bytes], { type: 'application/pdf' });
+
+  if (options.save !== false && typeof document !== 'undefined') {
+    downloadBlob(blob, filename);
+  }
+
+  return {
+    filename,
+    blob,
+    bytes,
+    content: renderedContent,
+    doc,
+  };
+}
+
+/**
+ * Minimal legacy fallback PDF when branded generation fails.
+ * @param {object} plan
+ * @param {object} [options]
+ */
+export async function legacyExport(plan = {}, options = {}) {
+  const mapped = mapAllSections(plan);
+  const filename = options.filename || buildPdfFilename(mapped.title || plan.title);
+  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+  const margin = 48;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const maxWidth = pageWidth - margin * 2;
+  let y = margin;
+
+  const write = (text, fontSize = 11, bold = false) => {
+    doc.setFont('helvetica', bold ? 'bold' : 'normal');
+    doc.setFontSize(fontSize);
+    const lines = doc.splitTextToSize(String(text || ''), maxWidth);
+    lines.forEach((line) => {
+      if (y > pageHeight - margin) {
+        doc.addPage();
+        y = margin;
+      }
+      doc.text(line, margin, y);
+      y += fontSize + 4;
+    });
+    y += 6;
+  };
+
+  write(mapped.title || plan.title || 'Profit Engine Plan', 16, true);
+  if (mapped.subtitle || plan.subtitle) write(mapped.subtitle || plan.subtitle, 12, false);
+  y += 4;
+
+  (mapped.sections || []).forEach((section) => {
+    write(section.title, 13, true);
+    write(section.body, 11, false);
+  });
+
+  if (options.save !== false && typeof document !== 'undefined') {
+    doc.save(filename);
+  }
+
+  const arrayBuffer = doc.output('arraybuffer');
+  return {
+    filename,
+    bytes: new Uint8Array(arrayBuffer),
+    blob: new Blob([arrayBuffer], { type: 'application/pdf' }),
+    content: mapped,
+    doc,
+  };
+}
+
+/**
+ * Desktop-safe branded export with legacy fallback.
+ * @param {object} plan
+ * @param {object} [options]
+ */
+export async function exportBrandedPdf(plan = {}, options = {}) {
+  try {
+    return await generateBrandedPdf(plan, options);
+  } catch (err) {
+    console.error('Branded PDF failed:', err);
+    return legacyExport(plan, options);
+  }
+}
+
+/**
+ * Generate and download a branded Profit Engine AI PDF.
+ * @param {object} data Money Maker generation result or plain content object
+ * @param {object} [options]
+ */
+export async function exportProfitEnginePdf(data = {}, options = {}) {
+  return exportBrandedPdf(data, options);
+}
+
+/**
+ * Generate PDF bytes without forcing a download (for Node tooling or previews).
+ * @param {object} data
+ * @param {object} [options]
+ */
+export async function createPdfExport(data = {}, options = {}) {
+  return generateBrandedPdf(data, { ...options, save: false });
+}
+
+export {
+  generatePdfBlob,
+  generatePdfDocument,
+};
+
+export default {
+  buildPdfFilename,
+  sanitizeTitleForFilename,
+  formatExportDate,
+  injectExportMetadata,
+  downloadBlob,
+  generateBrandedPdf,
+  legacyExport,
+  exportBrandedPdf,
+  exportProfitEnginePdf,
+  createPdfExport,
+};

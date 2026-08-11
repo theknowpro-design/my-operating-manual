@@ -1,0 +1,11 @@
+.guided-interview {
+  display: grid;
+  gap: var(--space-4);
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.guided-interview-intro {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}

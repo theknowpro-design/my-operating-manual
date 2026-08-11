@@ -1,0 +1,96 @@
+.optional-question {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  overflow: hidden;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.optional-question.is-open {
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+  box-shadow: var(--shadow-sm);
+}
+
+.optional-question-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: var(--color-text);
+  transition: background var(--transition-fast);
+}
+
+.optional-question-toggle:hover {
+  background: var(--color-accent-subtle);
+}
+
+.optional-question-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.optional-question-chevron {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  transition: transform var(--transition-base);
+}
+
+.optional-question.is-open .optional-question-chevron {
+  transform: rotate(180deg);
+  color: var(--color-accent);
+}
+
+.optional-question-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-base);
+}
+
+.optional-question.is-open .optional-question-panel {
+  grid-template-rows: 1fr;
+}
+
+.optional-question-panel-inner {
+  overflow: hidden;
+}
+
+.optional-question-body {
+  padding: 0 var(--space-4) var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.optional-question-prompt {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.optional-question-input {
+  width: 100%;
+  min-height: 88px;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.optional-question-input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-accent-subtle);
+}

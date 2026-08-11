@@ -1,0 +1,55 @@
+/** Color palette — light & dark tokens (Money Maker design system). */
+
+export const lightColors = {
+  bg: '#F3F5FA',
+  bgEnd: '#C7D3F5',
+  surface: '#ffffff',
+  surfaceRaised: '#f7f8fa',
+  border: '#e2e5eb',
+  borderFocus: '#5568E8',
+  text: '#2a2f3a',
+  textSecondary: '#5a6270',
+  textMuted: '#8b93a3',
+  accent: '#5568E8',
+  accentHover: '#4656c9',
+  accentMuted: '#3f4db0',
+  accentSubtle: 'rgba(85, 104, 232, 0.1)',
+  onAccent: '#ffffff',
+  success: '#3d8b5a',
+  successSubtle: 'rgba(61, 139, 90, 0.1)',
+  error: '#c45c5c',
+  errorSubtle: 'rgba(196, 92, 92, 0.1)',
+  warning: '#b8860b',
+  calloutBg: '#EEF1FB',
+  calloutBorder: '#5568E8',
+}
+
+export const darkColors = {
+  bg: '#1C1F26',
+  bgEnd: '#0A0C12',
+  surface: '#1a1d26',
+  surfaceRaised: '#222632',
+  border: '#2e3442',
+  borderFocus: '#7b8cf0',
+  text: '#e6e8ee',
+  textSecondary: '#a8b0c0',
+  textMuted: '#7a8496',
+  accent: '#7b8cf0',
+  accentHover: '#8e9cf5',
+  accentMuted: '#5568E8',
+  accentSubtle: 'rgba(123, 140, 240, 0.14)',
+  onAccent: '#ffffff',
+  success: '#5fa87a',
+  successSubtle: 'rgba(95, 168, 122, 0.12)',
+  error: '#d48a8a',
+  errorSubtle: 'rgba(212, 138, 138, 0.12)',
+  warning: '#c9a227',
+  calloutBg: 'rgba(123, 140, 240, 0.12)',
+  calloutBorder: '#7b8cf0',
+}
+
+export const pdfLightColors = {
+  ...lightColors,
+  bg: '#ffffff',
+  bgEnd: '#ffffff',
+}

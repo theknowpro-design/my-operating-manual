@@ -1,0 +1,37 @@
+.progress-bar {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.progress-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.progress-bar-label {
+  font-weight: var(--font-medium);
+}
+
+.progress-bar-track {
+  position: relative;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-accent-muted), var(--color-accent));
+  transition: width var(--transition-progress);
+}
+
+.progress-bar-fill.is-complete {
+  background: linear-gradient(90deg, var(--color-success), #6db88a);
+}

@@ -1,0 +1,31 @@
+.navigation-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.navigation-buttons-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+@media (max-width: 560px) {
+  .navigation-buttons {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .navigation-buttons-right {
+    margin-left: 0;
+    flex-direction: column;
+  }
+
+  .navigation-buttons .btn {
+    width: 100%;
+  }
+}

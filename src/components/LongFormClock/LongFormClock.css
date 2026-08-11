@@ -1,0 +1,29 @@
+.long-form-clock {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+@media (min-width: 1024px) {
+  .long-form-clock {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .long-form-clock {
+    display: block;
+    width: 100%;
+    font-size: var(--text-xs);
+    white-space: normal;
+    text-align: center;
+    line-height: var(--leading-tight);
+  }
+}
