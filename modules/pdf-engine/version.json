@@ -1,0 +1,8 @@
+{
+  "pdfEngineVersion": "1.0.0",
+  "pipelineVersion": "1.0.0",
+  "appVersion": "1.0.0",
+  "buildTimestamp": "2026-08-12T05:10:00Z",
+  "systemName": "My Operating Manual",
+  "description": "Operating Manual PDF generation system - locked architecture for single-purpose PDF exports"
+}

@@ -99,7 +99,7 @@ export function extractTitleAndBody(html) {
     return { title: stripTags(h2[1]), bodyHtml: source };
   }
 
-  return { title: 'Profit Engine Plan', bodyHtml: source };
+  return { title: 'My Operating Manual', bodyHtml: source };
 }
 
 export { escapeHtml, stripTags };

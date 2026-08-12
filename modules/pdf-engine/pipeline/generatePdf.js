@@ -50,7 +50,7 @@ export async function generatePdf(raw, options = {}) {
   }
 
   const filename = opts.filename
-    || buildPdfFilename(opts.title || opts.metadata?.title || 'Profit Engine Plan');
+    || buildPdfFilename(opts.title || opts.metadata?.title || 'My Operating Manual');
 
   const sanitized = sanitizeContent(String(raw ?? ''));
   const { html, schema } = applyStructure(sanitized, opts);

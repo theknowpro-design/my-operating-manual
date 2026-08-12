@@ -25,7 +25,7 @@ import { savePdf } from './savePdf.js';
  * @param {string} [filename]
  * @returns {Promise<object>} jsPDF instance after save
  */
-export async function renderPdfDocument(htmlDocument, schema = {}, filename = 'profit-engine.pdf') {
+export async function renderPdfDocument(htmlDocument, schema = {}, filename = 'my-operating-manual.pdf') {
   let doc;
 
   const htmlForRender = typeof htmlDocument === 'string'
@@ -47,18 +47,18 @@ export async function renderPdfDocument(htmlDocument, schema = {}, filename = 'p
     const meta = schema?.metadata || {};
     if (typeof doc.setProperties === 'function') {
       doc.setProperties({
-        title: meta.title || schema?.title || 'Profit Engine Plan',
+        title: meta.title || schema?.title || 'My Operating Manual',
         subject: meta.description || schema?.subtitle || '',
         keywords: Array.isArray(meta.keywords) ? meta.keywords.join(', ') : String(meta.keywords || ''),
-        creator: 'Profit Engine AI',
-        author: 'Profit Engine AI',
+        creator: 'My Operating Manual',
+        author: 'My Operating Manual',
       });
     }
   } catch {
     // Properties are best-effort only.
   }
 
-  savePdf(doc, filename || 'profit-engine.pdf');
+  savePdf(doc, filename || 'my-operating-manual.pdf');
   return doc;
 }
 

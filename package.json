@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/guards/preventGraphRecreation.js && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },

@@ -12,8 +12,8 @@
  */
 
 /**
- * Content Mapper — maps Money Maker App outputs or user-provided text
- * into business-class PDF section blocks.
+ * @deprecated LEGACY — Content mapping for archived systems.
+ * Not used by My Operating Manual PDF generation.
  */
 
 function asText(value) {
@@ -86,7 +86,7 @@ function resolveContext(data = {}) {
     content,
     title: pick(data, 'title', 'exportTitle')
       || pick(method, 'title')
-      || 'Profit Engine Plan',
+      || 'My Operating Manual',
     subtitle: pick(data, 'subtitle') || '',
     niche: pick(data, 'niche', 'nicheName')
       || pick(method, 'nicheDisplayName', 'nicheName')
@@ -364,8 +364,8 @@ export function mapAllSections(data = {}) {
   const subtitleParts = [ctx.niche, ctx.category].filter(Boolean);
 
   return {
-    title: ctx.title || 'Profit Engine Plan',
-    subtitle: ctx.subtitle || subtitleParts.join(' · ') || 'Profit Engine AI Plan',
+    title: ctx.title || 'My Operating Manual',
+    subtitle: ctx.subtitle || subtitleParts.join(' · ') || 'Personal Operating Manual',
     focus: ctx.focus,
     sections: [
       { id: 'executiveSummary', title: 'Executive Summary', body: mapExecutiveSummary(data) },

@@ -1,0 +1,10 @@
+{
+  "name": "my-operating-manual",
+  "entry": "system.md",
+  "files": [
+    "system.md",
+    "instructions.md",
+    "output_format.md",
+    "invocation.md"
+  ]
+}

@@ -8,11 +8,11 @@
  * @param {string} [filename]
  * @returns {void}
  */
-export function savePdf(doc, filename = 'profit-engine.pdf') {
+export function savePdf(doc, filename = 'my-operating-manual.pdf') {
   if (!doc || typeof doc.save !== 'function') {
     throw new Error('savePdf requires a jsPDF instance');
   }
-  doc.save(String(filename || 'profit-engine.pdf'));
+  doc.save(String(filename || 'my-operating-manual.pdf'));
 }
 
 export default savePdf;

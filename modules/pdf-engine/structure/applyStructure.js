@@ -13,8 +13,6 @@ import { enforcePageBreaks, PAGE_BREAK_HTML } from './enforcePageBreaks.js';
 import { repairBlockStructure } from './repairBlockStructure.js';
 import { assignHeadingAnchors, buildTOC } from './buildTOC.js';
 import { buildCover } from './buildCover.js';
-import { insertAdvancedTipsGraph } from './advancedTips.js';
-import { insertRealWorldScenariosGraph } from './realWorldScenarios.js';
 import { insertCockpitGraphs } from './insertCockpitGraphs.js';
 import { enforceMargins, getStructureCss } from './enforceMargins.js';
 import {
@@ -125,7 +123,7 @@ export function applyStructure(sanitizedHtml, options = {}) {
   const existing = extractExistingCover(source);
   const extracted = extractTitleAndBody(existing.remainder || source);
 
-  const title = String(options.title || extracted.title || 'Profit Engine Plan').trim();
+  const title = String(options.title || extracted.title || 'My Operating Manual').trim();
   const subtitle = String(options.subtitle || '').trim();
   const brand = String(options.brand || options.author || 'My Operating Manual').trim();
   const includeLogo = options.includeLogo !== false;
@@ -174,8 +172,8 @@ export function applyStructure(sanitizedHtml, options = {}) {
     nicheName: options.nicheName || options.niche || '',
     nicheId: options.nicheId || '',
   };
-  bodyHtml = insertAdvancedTipsGraph(bodyHtml, nicheOptions);
-  bodyHtml = insertRealWorldScenariosGraph(bodyHtml, nicheOptions);
+  // Deprecated: insertAdvancedTipsGraph and insertRealWorldScenariosGraph removed
+  // Operating Manual uses only inline SVG cockpit graphs
   bodyHtml = insertCockpitGraphs(bodyHtml);
 
   const anchored = assignHeadingAnchors(bodyHtml);

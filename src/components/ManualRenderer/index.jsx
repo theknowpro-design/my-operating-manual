@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { marked } from 'marked'
-import DOMPurify from 'dompurify'
+import { sanitizeHtml } from '../../utils/sanitizeHtml.js'
 import { slugify } from '../../utils/manualGenerator.js'
 import './ManualRenderer.css'
 
@@ -20,7 +20,7 @@ export function ManualRenderer({ markdown }) {
   const html = useMemo(() => {
     if (!markdown?.trim()) return ''
     const raw = marked.parse(markdown)
-    return DOMPurify.sanitize(raw)
+    return sanitizeHtml(raw)
   }, [markdown])
 
   if (!html) {

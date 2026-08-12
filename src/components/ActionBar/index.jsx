@@ -51,8 +51,9 @@ export function ActionBar() {
         : 'My Operating Manual'
 
       // Lazy-load so PDF engine / logo asset failures cannot blank the whole app.
-      const { generatePDF } = await import('../../../modules/pdf-engine/exportManager.js')
-      await generatePDF(manualMarkdown, {
+      // Uses LOCKED entry point to enforce schema validation and branding.
+      const { generateOperatingManualPdf } = await import('../../../modules/pdf-engine/exportManager.js')
+      await generateOperatingManualPdf(manualMarkdown, {
         title,
         subtitle: 'Personal Operating Manual',
         author: authorName || 'My Operating Manual',

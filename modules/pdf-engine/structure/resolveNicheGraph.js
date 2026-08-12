@@ -1,100 +1,49 @@
 /**
- * Resolve niche → static graph asset path for PDF structure.
- * Falls back to generic monthly/income PNGs when no niche match exists.
+ * DEPRECATED: Niche Graph Resolution (Money Maker)
+ * 
+ * This module was used to resolve niche-specific income potential and monthly progress graphs.
+ * It is NOT used by the My Operating Manual system.
+ * 
+ * All functions have been disabled to prevent accidental use.
+ * The file is kept for reference only.
+ * 
+ * For Operating Manual PDF generation, the system uses inline SVG cockpit graphs only.
+ * @see insertCockpitGraphs.js
  */
 
-import nicheGraphCatalog from './nicheGraphCatalog.js';
+// ❌ DEPRECATED: These functions are no longer used
+// They attempted to resolve PNG graph assets from the now-removed graphs folder.
 
 /**
- * Catalog display-name → graph slug when generator labels diverge from ALL_NICHES.
- * Keep in sync with pdf-engine/scripts/generate-niche-graphs.mjs where practical.
+ * @deprecated Niche graph resolution removed
  */
-const NICHE_GRAPH_ALIASES = Object.freeze({
-  accounting: 'business-accounting',
-  'business-accounting': 'business-accounting',
-  'ml-ops': 'mlops',
-  mlops: 'mlops',
-  'virtual-assistance': 'virtual-assistants',
-  'virtual-assistant': 'virtual-assistants',
-  'virtual-assistants': 'virtual-assistants',
-});
-
-/** @type {Record<string, { niche: string, category: string, filename: string, graphType: string }>} */
-const COMPACT_KEY_INDEX = Object.create(null);
-for (const [catalogKey, entry] of Object.entries(nicheGraphCatalog.byKey || {})) {
-  COMPACT_KEY_INDEX[catalogKey.replace(/-/g, '')] = entry;
+export function resolveNicheGraphSrc(options, graphType) {
+  console.warn(
+    '[DEPRECATED] resolveNicheGraphSrc() is disabled. ' +
+    'The My Operating Manual system uses inline SVG graphics only. ' +
+    'Niche graphs folder has been permanently removed.'
+  );
+  return '';
 }
 
 /**
- * @param {unknown} value
- * @returns {string}
+ * @deprecated Niche graph entry resolution removed
  */
-export function normalizeNicheKey(value) {
-  return String(value || '')
-    .toLowerCase()
-    .replace(/&/g, ' and ')
-    .replace(/[()/]/g, ' ')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .replace(/-+/g, '-');
-}
-
-/**
- * @param {{ niche?: string, nicheName?: string, nicheId?: string }} [options]
- * @returns {string[]}
- */
-function candidateKeys(options = {}) {
-  return [options.nicheName, options.niche, options.nicheId]
-    .map((value) => String(value || '').trim())
-    .filter(Boolean);
-}
-
-/**
- * @param {string} key
- * @returns {{ niche: string, category: string, filename: string, graphType: string }|null}
- */
-function lookupEntry(key) {
-  const normalized = normalizeNicheKey(key);
-  if (!normalized) return null;
-
-  const byKey = nicheGraphCatalog.byKey || {};
-  if (byKey[normalized]) return byKey[normalized];
-
-  const aliased = NICHE_GRAPH_ALIASES[normalized];
-  if (aliased && byKey[aliased]) return byKey[aliased];
-
-  // Hyphen-insensitive: "ML Ops" → ml-ops ↔ mlops
-  const compact = normalized.replace(/-/g, '');
-  return (compact && COMPACT_KEY_INDEX[compact]) || null;
-}
-
-/**
- * Resolve the public asset path for a niche graph.
- * @param {{ niche?: string, nicheName?: string, nicheId?: string }} [options]
- * @param {'monthly-progress'|'income-potential'} [preferredFallback='monthly-progress']
- * @returns {string} structure-relative asset path (assets/graphs/...)
- */
-export function resolveNicheGraphSrc(options = {}, preferredFallback = 'monthly-progress') {
-  for (const key of candidateKeys(options)) {
-    const entry = lookupEntry(key);
-    if (entry?.filename) return `assets/graphs/${entry.filename}`;
-  }
-
-  return preferredFallback === 'income-potential'
-    ? 'assets/graphs/income-potential-graph.png'
-    : 'assets/graphs/monthly-progress-graph.png';
-}
-
-/**
- * @param {{ niche?: string, nicheName?: string, nicheId?: string }} [options]
- * @returns {{ niche: string, category: string, filename: string, graphType: string }|null}
- */
-export function resolveNicheGraphEntry(options = {}) {
-  for (const key of candidateKeys(options)) {
-    const entry = lookupEntry(key);
-    if (entry) return entry;
-  }
+export function resolveNicheGraphEntry(nicheKey) {
+  console.warn(
+    '[DEPRECATED] resolveNicheGraphEntry() is disabled. ' +
+    'Niche graphs are not available in Operating Manual mode.'
+  );
   return null;
 }
 
-export default resolveNicheGraphSrc;
+/**
+ * @deprecated Niche key normalization removed
+ */
+export function normalizeNicheKey(key) {
+  console.warn(
+    '[DEPRECATED] normalizeNicheKey() is disabled. ' +
+    'Niche graphs are not available in Operating Manual mode.'
+  );
+  return key;
+}

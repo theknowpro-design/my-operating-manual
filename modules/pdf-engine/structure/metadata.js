@@ -37,7 +37,7 @@ function normalizeKeywords(keywords) {
  * @returns {string}
  */
 export function buildHeadMetadata(metadata = {}) {
-  const title = String(metadata.title || 'Profit Engine Plan').trim();
+  const title = String(metadata.title || 'My Operating Manual').trim();
   const description = String(metadata.description || '').trim();
   const keywords = normalizeKeywords(metadata.keywords);
   const imageAlt = String(metadata.imageAlt || '').trim();
