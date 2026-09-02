@@ -27,6 +27,9 @@ const initialState = {
   manualMarkdown: '',
   isInterviewComplete: false,
   authorName: '',
+  profilePhoto: null,
+  rightTileLink: '',
+  rightTileImage: null,
   error: null,
   isLoading: false,
 }
@@ -45,6 +48,18 @@ export function AppStateProvider({ children }) {
       throw new Error(validation.error);
     }
     setState((prev) => ({ ...prev, authorName: validation.sanitized }))
+  }, [])
+
+  const setProfilePhoto = useCallback((profilePhoto) => {
+    setState((prev) => ({ ...prev, profilePhoto }))
+  }, [])
+
+  const setRightTileLink = useCallback((rightTileLink) => {
+    setState((prev) => ({ ...prev, rightTileLink }))
+  }, [])
+
+  const setRightTileImage = useCallback((rightTileImage) => {
+    setState((prev) => ({ ...prev, rightTileImage }))
   }, [])
 
   const setCurrentPhase = useCallback((currentPhase) => {
@@ -218,6 +233,9 @@ export function AppStateProvider({ children }) {
       ...state,
       setView,
       setAuthorName,
+      setProfilePhoto,
+      setRightTileLink,
+      setRightTileImage,
       setCurrentPhase,
       setResponse,
       setOptionalResponse,
@@ -239,6 +257,9 @@ export function AppStateProvider({ children }) {
       state,
       setView,
       setAuthorName,
+      setProfilePhoto,
+      setRightTileLink,
+      setRightTileImage,
       setCurrentPhase,
       setResponse,
       setOptionalResponse,

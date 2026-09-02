@@ -6,6 +6,17 @@
 .output-page-header {
   display: grid;
   gap: var(--space-2);
+  align-items: center;
+}
+
+.output-page-profile-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+  display: block;
+  margin: 0 auto var(--space-3) auto;
 }
 
 .output-page-title {
@@ -20,15 +31,21 @@
 }
 
 .output-page-layout {
-  display: grid;
-  gap: var(--space-4);
-  align-items: start;
+  display: flex;
+  gap: var(--space-5);
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 @media (min-width: 901px) {
   .output-page-layout {
-    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-    gap: var(--space-5);
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1600px) {
+  .output-page-layout {
+    flex-direction: row;
   }
 }
 
@@ -36,6 +53,7 @@
   .output-page-header,
   .output-page .sidebar-toc,
   .output-page .action-bar,
+  .output-page .right-tile,
   .top-nav {
     display: none !important;
   }

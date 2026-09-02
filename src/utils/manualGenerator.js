@@ -89,7 +89,12 @@ export function extractTocFromMarkdown(markdown) {
       const match = /^(#{2,3})\s+(.+)$/.exec(line.trim())
       if (!match) return
       const level = match[1].length
-      const title = match[2].replace(/\*\*/g, '').trim()
+      // Remove markdown formatting: bold (**), italic (*), code (`)
+      const title = match[2]
+        .replace(/\*\*/g, '')
+        .replace(/\*/g, '')
+        .replace(/`/g, '')
+        .trim()
       const id = slugify(title)
       toc.push({ level, title, id })
     })

@@ -97,6 +97,21 @@ body {
   display: block;
   margin: 0 auto;
 }
+.pdf-cover-profile-photo {
+  text-align: center;
+  display: block;
+  margin: 0 auto 24px auto;
+  line-height: 0;
+}
+.pdf-cover-profile-photo-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid #cccccc;
+}
 .pdf-cover-title {
   font-size: 28px;
   font-weight: bold;
@@ -267,9 +282,6 @@ li {
   margin: 0 auto;
   display: block;
   overflow: visible;
-}
-.pdf-metadata {
-  margin-top: 12px;
 }
 </style>`;
 }

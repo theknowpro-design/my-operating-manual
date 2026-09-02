@@ -1,11 +1,10 @@
 /**
- * Build SEO metadata block HTML via the template layer.
- * Pure assembly — no rendering. No trailing page-break.
+ * DEPRECATED: Build SEO metadata block — no longer used
+ * Operating Manual PDFs store metadata in <head> tags only, not in document body.
  */
 
-import { buildMetadata as renderMetadata } from '../templates/metadataTemplate.js';
-
 /**
+ * @deprecated
  * @param {{
  *   title?: string,
  *   description?: string,
@@ -15,7 +14,8 @@ import { buildMetadata as renderMetadata } from '../templates/metadataTemplate.j
  * @returns {string}
  */
 export function buildMetadata(metadata = {}) {
-  return renderMetadata(metadata || {});
+  // Deprecated: no longer renders metadata in PDF body
+  return '';
 }
 
 export default buildMetadata;

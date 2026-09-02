@@ -61,40 +61,10 @@ export function buildHeadMetadata(metadata = {}) {
 }
 
 /**
- * Optional visible metadata appendix (after body sections).
- * @param {StructureMetadata} metadata
- * @returns {string}
+ * REMOVED: buildMetadataBlock - was generating the "SEO Metadata" section
+ * Operating Manual PDFs contain only the 12 core sections + Quick Reference
+ * Metadata is stored in <head> tags only (for PDF properties), not rendered in body
  */
-export function buildMetadataBlock(metadata = {}) {
-  const title = String(metadata.title || '').trim();
-  const description = String(metadata.description || '').trim();
-  const keywords = normalizeKeywords(metadata.keywords);
-  const imageAlt = String(metadata.imageAlt || '').trim();
-
-  if (!title && !description && !keywords.length && !imageAlt) return '';
-
-  const parts = [
-    '<section class="pdf-metadata" id="pdf-metadata">',
-    '<h2 id="section-seo-metadata">SEO Metadata</h2>',
-  ];
-
-  if (title) parts.push(`<p><strong>Title:</strong> ${escapeHtml(title)}</p>`);
-  if (description) parts.push(`<p><strong>Description:</strong> ${escapeHtml(description)}</p>`);
-  if (keywords.length) {
-    parts.push('<p><strong>Keywords:</strong></p>');
-    parts.push('<ul>');
-    for (const keyword of keywords) {
-      parts.push(`<li>${escapeHtml(keyword)}</li>`);
-    }
-    parts.push('</ul>');
-  }
-  if (imageAlt) {
-    parts.push(`<p><strong>Image alt text:</strong> ${escapeHtml(imageAlt)}</p>`);
-  }
-
-  parts.push('</section>');
-  return parts.join('\n');
-}
 
 /**
  * Merge caller metadata over extracted defaults (caller / Focus-aware wins).
@@ -115,6 +85,5 @@ export function mergeMetadata(base = {}, overlay = {}) {
 
 export default {
   buildHeadMetadata,
-  buildMetadataBlock,
   mergeMetadata,
 };

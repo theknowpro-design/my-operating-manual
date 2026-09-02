@@ -17,7 +17,6 @@ export { renderImageBlock } from './renderImageBlock.js';
 export { enforceMargins, getStructureCss } from './enforceMargins.js';
 export {
   buildHeadMetadata,
-  buildMetadataBlock,
   mergeMetadata,
 } from './metadata.js';
 

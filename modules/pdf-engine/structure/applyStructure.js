@@ -17,7 +17,6 @@ import { insertCockpitGraphs } from './insertCockpitGraphs.js';
 import { enforceMargins, getStructureCss } from './enforceMargins.js';
 import {
   buildHeadMetadata,
-  buildMetadataBlock,
   mergeMetadata,
 } from './metadata.js';
 
@@ -147,24 +146,8 @@ export function applyStructure(sanitizedHtml, options = {}) {
   );
   if (!metadata.title) metadata.title = title;
 
-  if (options.includeMetadataBlock !== false) {
-    // Dedup: body may already include SEO from long-form / timeline wiring.
-    const seoHeadingRe = /<h2[^>]*>\s*SEO Metadata\s*<\/h2>/gi;
-    const seoHits = bodyHtml.match(seoHeadingRe) || [];
-    if (seoHits.length === 0) {
-      const block = buildMetadataBlock(metadata);
-      if (block) bodyHtml = `${bodyHtml}\n${block}`;
-    } else if (seoHits.length > 1) {
-      let seen = 0;
-      bodyHtml = bodyHtml.replace(
-        /(<h2[^>]*>\s*SEO Metadata\s*<\/h2>)([\s\S]*?)(?=<h2\b|$)/gi,
-        (full, heading, rest) => {
-          seen += 1;
-          return seen === 1 ? `${heading}${rest}` : '';
-        }
-      );
-    }
-  }
+  // REMOVED: SEO Metadata block generation
+  // Operating Manual PDFs store metadata in <head> tags only (not visible in body)
 
   // Static niche graphs: each section starts the image on a fresh page.
   const nicheOptions = {
@@ -199,6 +182,7 @@ export function applyStructure(sanitizedHtml, options = {}) {
     coverImageUrl,
     coverHtml: coverHtmlOpt,
     generatedAt: options.generatedAt,
+    profilePhoto: options.profilePhoto || null,
   });
 
   // TOC is Page 2.

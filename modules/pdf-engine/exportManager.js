@@ -131,7 +131,7 @@ export async function generateOperatingManualPdf(markdownOrHtml = '', options = 
   // PROCESSING: Convert markdown to HTML
   const looksLikeHtml = /^\s*</.test(raw);
   const html = looksLikeHtml ? raw : markdownToLightHtml(raw);
-  
+
   const title = options.title || 'My Operating Manual';
   const generatedAt = options.generatedAt || new Date();
 
@@ -152,6 +152,7 @@ export async function generateOperatingManualPdf(markdownOrHtml = '', options = 
     subtitle: options.subtitle || 'Personal Operating Manual',
     generatedAt,
     filename: options.filename || buildPdfFilename(title),
+    profilePhoto: options.profilePhoto || null,
     
     // METADATA: Operating Manual-focused
     metadata: {

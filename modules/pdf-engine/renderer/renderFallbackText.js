@@ -111,19 +111,8 @@ export async function renderFallbackText(schema = {}) {
     }
   }
 
-  const meta = schema.metadata || {};
-  if (meta.title || meta.description || (meta.keywords || []).length || meta.imageAlt) {
-    doc.addPage();
-    y = top;
-    writeLines('SEO Metadata', sizes.h2 || 18, true);
-    if (meta.title) writeLines(`Title: ${meta.title}`, sizes.body || 9, false);
-    if (meta.description) writeLines(`Description: ${meta.description}`, sizes.body || 9, false);
-    if (Array.isArray(meta.keywords) && meta.keywords.length) {
-      writeLines(`Keywords: ${meta.keywords.join(', ')}`, sizes.body || 9, false);
-    }
-    if (meta.imageAlt) writeLines(`Image alt text: ${meta.imageAlt}`, sizes.body || 9, false);
-  }
-
+  // REMOVED: SEO Metadata rendering
+  // Metadata is stored in <head> tags only, not rendered in document body
   return doc;
 }
 

@@ -42,9 +42,7 @@ export function assignHeadingAnchors(html) {
       let id = slugifyHeading(title, entries.length);
       if (used.has(id)) id = `${id}-${entries.length + 1}`;
       used.add(id);
-      const displayTitle =
-        /^SEO Metadata$/i.test(title) ? 'SEO' : title;
-      entries.push({ id, title: displayTitle });
+      entries.push({ id, title });
       // class="h2" enables `.h2 { break-before: page; }` even when DOCX leaks classes
       return `<h2 id="${id}" class="h2">${inner}</h2>`;
     }

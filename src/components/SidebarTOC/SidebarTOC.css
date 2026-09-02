@@ -1,9 +1,12 @@
 .sidebar-toc {
   position: sticky;
-  top: calc(var(--header-height) + var(--space-4));
-  align-self: start;
-  max-height: calc(100vh - var(--header-height) - var(--space-8));
+  top: 0;
+  height: 100vh;
   overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  width: var(--sidebar-width);
   padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -33,6 +36,7 @@
   width: 100%;
   text-align: left;
   border: none;
+  border-left: 3px solid transparent;
   background: transparent;
   border-radius: var(--radius-sm);
   padding: var(--space-2) var(--space-3);
@@ -41,7 +45,9 @@
   transition:
     background var(--transition-fast),
     color var(--transition-fast),
-    transform var(--transition-fast);
+    border-left var(--transition-fast),
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
 }
 
 .sidebar-toc-link:hover {
@@ -49,9 +55,26 @@
   color: var(--color-text);
 }
 
+.sidebar-toc-link.is-active {
+  background: var(--color-accent-subtle);
+  color: var(--color-text);
+  border-left: 3px solid var(--color-accent);
+  padding-left: calc(var(--space-3) - 3px);
+  transform: translateX(2px);
+}
+
+.sidebar-toc-link.is-active:hover {
+  background: var(--color-accent-subtle);
+  color: var(--color-text);
+}
+
 .sidebar-toc-link.is-h3 {
   padding-left: var(--space-5);
   font-size: var(--text-xs);
+}
+
+.sidebar-toc-link.is-h3.is-active {
+  padding-left: calc(var(--space-5) - 3px);
 }
 
 .sidebar-toc-empty {
@@ -63,6 +86,24 @@
   .sidebar-toc {
     position: relative;
     top: 0;
-    max-height: none;
+    height: auto;
+    overflow: visible;
+    overflow-y: visible;
+    width: 100%;
+    flex-shrink: 1;
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-toc {
+    position: static;
+    height: auto;
+    overflow: visible;
+    overflow-y: visible;
+    width: 100%;
+    flex-shrink: 1;
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-4);
   }
 }

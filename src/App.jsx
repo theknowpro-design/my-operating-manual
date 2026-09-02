@@ -1,13 +1,30 @@
 import { ThemeProvider } from './context/ThemeContext.jsx'
 import { AppStateProvider, useAppState } from './context/AppStateContext.jsx'
 import TopNav from './components/TopNav/index.jsx'
+import Footer from './components/Footer.jsx'
 import LandingPage from './pages/LandingPage/index.jsx'
 import GuidedInterview from './pages/GuidedInterview/index.jsx'
 import OutputPage from './pages/OutputPage/index.jsx'
 import PipelineFailedScreen from './components/PipelineFailedScreen.jsx'
 import DevDocs from './pages/DevDocs/index.jsx'
+import HowToUse from './pages/legal/HowToUse.jsx'
+import Privacy from './pages/legal/Privacy.jsx'
+import Terms from './pages/legal/Terms.jsx'
+import Disclaimer from './pages/legal/Disclaimer.jsx'
+import RefundPolicy from './pages/legal/RefundPolicy.jsx'
 import './styles/global.css'
 import { useEffect, useRef } from 'react'
+
+// Pathname → component map for legal/help pages opened in new tabs.
+// Vite SPA mode falls back to index.html for unknown paths, so these
+// pages load the same bundle and this check renders the right component.
+const LEGAL_ROUTES = {
+  '/how-to-use': HowToUse,
+  '/privacy': Privacy,
+  '/terms': Terms,
+  '/disclaimer': Disclaimer,
+  '/refund-policy': RefundPolicy,
+}
 
 function AppViews() {
   const { view, error, setView } = useAppState()
@@ -78,11 +95,20 @@ function AppViews() {
         {view === 'interview' ? <GuidedInterview /> : null}
         {view === 'output' ? <OutputPage /> : null}
       </main>
+      <Footer />
     </div>
   )
 }
 
 export default function App() {
+  // Serve legal/help pages when navigated to directly (e.g., via footer links in a new tab).
+  // Vite's SPA fallback serves index.html for all unknown paths, so this check runs on load.
+  const pathname = window.location.pathname
+  const LegalPage = LEGAL_ROUTES[pathname]
+  if (LegalPage) {
+    return <LegalPage />
+  }
+
   return (
     <ThemeProvider>
       <AppStateProvider>

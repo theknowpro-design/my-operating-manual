@@ -82,19 +82,8 @@ export async function renderFallbackText(schema = {}) {
     writeLines(section.body || '', 14, false);
   }
 
-  const meta = schema.metadata || {};
-  if (meta.title || meta.description || (meta.keywords || []).length || meta.imageAlt) {
-    doc.addPage();
-    y = top;
-    writeLines('SEO Metadata', 22, true);
-    if (meta.title) writeLines(`Title: ${meta.title}`, 14, false);
-    if (meta.description) writeLines(`Description: ${meta.description}`, 14, false);
-    if (Array.isArray(meta.keywords) && meta.keywords.length) {
-      writeLines(`Keywords: ${meta.keywords.join(', ')}`, 14, false);
-    }
-    if (meta.imageAlt) writeLines(`Image alt text: ${meta.imageAlt}`, 14, false);
-  }
-
+  // REMOVED: SEO Metadata rendering
+  // Metadata is stored in <head> tags only, not rendered in document body
   return doc;
 }
 

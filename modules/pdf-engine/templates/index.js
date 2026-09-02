@@ -29,7 +29,6 @@ export { buildTitlePage } from './titlePage.js';
 export { buildSections } from './sectionsTemplate.js';
 export { buildCta } from './ctaTemplate.js';
 export { buildFaq } from './faqTemplate.js';
-export { buildMetadata } from './metadataTemplate.js';
 export { getCss } from './cssTemplate.js';
 export {
   layout,

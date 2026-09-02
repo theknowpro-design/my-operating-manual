@@ -1,0 +1,74 @@
+.right-tile-image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.right-tile-image-upload > label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+}
+
+.right-tile-upload-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-family: inherit;
+  font-weight: var(--font-semibold);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.right-tile-upload-button:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-subtle);
+  color: var(--color-accent);
+}
+
+.right-tile-upload-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.right-tile-upload-button:active {
+  transform: scale(0.98);
+}
+
+.right-tile-upload-button svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.right-tile-file-input {
+  display: none;
+}
+
+.right-tile-upload-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+.right-tile-error {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-error-subtle);
+  color: var(--color-error);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  text-align: center;
+  border: 1px solid var(--color-error-light);
+}

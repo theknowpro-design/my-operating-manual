@@ -1,0 +1,228 @@
+/**
+ * Image Upload Modal Styles
+ */
+
+.image-upload-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.image-upload-modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-upload-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.image-upload-modal-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.image-upload-modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+.image-upload-modal-close:hover {
+  background: var(--color-accent-subtle);
+  color: var(--color-text);
+}
+
+.image-upload-modal-content {
+  padding: var(--space-5);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.image-upload-modal-input-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.image-upload-modal-input {
+  display: none;
+}
+
+.image-upload-modal-label {
+  display: block;
+  padding: var(--space-4);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-semibold);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.image-upload-modal-input:hover + .image-upload-modal-label,
+.image-upload-modal-label:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-subtle);
+  color: var(--color-text);
+}
+
+.image-upload-modal-input:disabled + .image-upload-modal-label {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.image-upload-modal-error {
+  padding: var(--space-3);
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid var(--color-error, #f44336);
+  border-radius: var(--radius-sm);
+  color: var(--color-error, #f44336);
+  font-size: var(--text-sm);
+}
+
+.image-upload-modal-info {
+  padding: var(--space-3);
+  background: var(--color-background);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.image-upload-modal-filename {
+  margin: 0;
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.image-upload-modal-details {
+  margin: var(--space-1) 0 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.image-upload-modal-warning {
+  padding: var(--space-3);
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid var(--color-warning, #ffc107);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.image-upload-modal-warning-text {
+  margin: 0;
+  color: var(--color-warning, #ffc107);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+}
+
+.image-upload-modal-warning-button {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-warning, #ffc107);
+  color: #000;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+  transition: opacity var(--transition-fast);
+}
+
+.image-upload-modal-warning-button:hover {
+  opacity: 0.9;
+}
+
+.image-upload-modal-footer {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+.image-upload-modal-button {
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+  transition: opacity var(--transition-fast);
+  min-width: 100px;
+}
+
+.image-upload-modal-button.is-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.image-upload-modal-button.is-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.image-upload-modal-button.is-secondary {
+  background: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.image-upload-modal-button.is-secondary:hover:not(:disabled) {
+  background: var(--color-accent-subtle);
+}
+
+.image-upload-modal-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .image-upload-modal {
+    width: 95%;
+  }
+
+  .image-upload-modal-header,
+  .image-upload-modal-content,
+  .image-upload-modal-footer {
+    padding: var(--space-4);
+  }
+}

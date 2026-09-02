@@ -8,7 +8,6 @@ import { buildTitlePage } from './titlePage.js';
 import { buildSections } from './sectionsTemplate.js';
 import { buildCta } from './ctaTemplate.js';
 import { buildFaq } from './faqTemplate.js';
-import { buildMetadata } from './metadataTemplate.js';
 
 /** Brand logo — Vite-resolved import, with public assets URL fallback. */
 const PDF_LOGO_SRC = brandingConfig.logo || PDF_LOGO_PUBLIC_URL;
@@ -34,14 +33,14 @@ export function buildHtmlDocument(schema = {}) {
   const sections = buildSections(schema.sections || []);
   const cta = buildCta(schema.cta || '');
   const faq = buildFaq(schema.faq || []);
-  const metadata = buildMetadata(schema.metadata || {});
+  // REMOVED: metadata is not rendered in Operating Manual body
+  // Metadata (keywords, description, etc.) is stored in <head> tags only
 
   const content = [
     titlePage,
     sections,
     cta,
     faq,
-    metadata,
   ].join('');
 
   return [

@@ -18,6 +18,5 @@ export { buildDocument } from './buildDocument.js';
 export { buildSections } from './buildSections.js';
 export { buildCTA } from './buildCTA.js';
 export { buildFAQ } from './buildFAQ.js';
-export { buildMetadata } from './buildMetadata.js';
 
 export default buildFullDocument;

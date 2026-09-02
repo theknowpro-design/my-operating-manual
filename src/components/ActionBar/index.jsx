@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { useAppState } from '../../context/AppStateContext.jsx'
 import { Button } from '../Buttons/index.jsx'
+import { exceedsPhaseLimit } from '../../utils/characterCountFromMarkdown.js'
+import { TOTAL_PHASES } from '../../data/phases.js'
 import './ActionBar.css'
 
 export function ActionBar() {
   const {
     manualMarkdown,
     authorName,
+    profilePhoto,
+    responses,
     setView,
     resetInterview,
     regenerateManual,
@@ -42,6 +46,16 @@ export function ActionBar() {
       return
     }
 
+    // Validate all phase character limits before exporting
+    for (let phaseId = 0; phaseId < TOTAL_PHASES; phaseId++) {
+      const phaseMarkdown = responses[phaseId] || ''
+      if (exceedsPhaseLimit(phaseMarkdown, phaseId)) {
+        const phaseNum = phaseId + 1
+        flash('error', `Phase ${phaseNum} exceeds character limit. Please reduce content and try again.`)
+        return
+      }
+    }
+
     setExporting(true)
     flash('busy', 'Generating PDF…', 8000)
 
@@ -58,6 +72,7 @@ export function ActionBar() {
         subtitle: 'Personal Operating Manual',
         author: authorName || 'My Operating Manual',
         generatedAt: new Date(),
+        profilePhoto: profilePhoto || null,
       })
 
       flash('success', 'PDF exported')

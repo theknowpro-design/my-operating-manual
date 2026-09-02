@@ -1,6 +1,7 @@
 import { useAppState } from '../../context/AppStateContext.jsx'
 import { getOptionalQuestionsForPhase } from '../../data/optionalQuestions.js'
 import OptionalQuestion from '../OptionalQuestion/index.jsx'
+import TipTapEditor from '../TipTapEditor/index.jsx'
 import './PhaseCard.css'
 
 export function PhaseCard({ phase }) {
@@ -22,17 +23,14 @@ export function PhaseCard({ phase }) {
         </aside>
       ) : null}
 
-      <label className="phase-card-question" htmlFor={`phase-input-${phase.id}`}>
+      <label className="phase-card-question">
         {phase.question}
       </label>
-      <textarea
-        id={`phase-input-${phase.id}`}
-        className="phase-card-input"
+      <TipTapEditor
         value={value}
+        onChange={(markdown) => setResponse(phase.id, markdown)}
         placeholder={phase.placeholder}
-        onChange={(event) => setResponse(phase.id, event.target.value)}
-        rows={7}
-        required
+        phaseId={phase.id}
       />
 
       {optionals.length > 0 ? (

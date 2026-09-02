@@ -19,6 +19,7 @@ import { PAGE_BREAK_HTML } from './enforcePageBreaks.js';
  *   coverImageUrl?: string,
  *   coverHtml?: string,
  *   generatedAt?: Date|string|number,
+ *   profilePhoto?: string|null,
  * }} CoverOptions
  */
 
@@ -53,11 +54,16 @@ export function buildCover(options = {}) {
   const subtitle = String(options.subtitle || '').trim();
   const brand = String(options.brand || options.author || '').trim();
   const logoUrl = String(options.logoUrl || '').trim();
+  const profilePhoto = options.profilePhoto || null;
   const generatedLabel = formatGeneratedLabel(options.generatedAt ?? new Date());
 
   const parts = ['<header class="pdf-cover">'];
 
-  if (logoUrl) {
+  if (profilePhoto) {
+    parts.push(
+      `<div class="pdf-cover-profile-photo"><img class="pdf-cover-profile-photo-img" src="${escapeHtml(profilePhoto)}" alt="Profile photo" /></div>`
+    );
+  } else if (logoUrl) {
     parts.push(
       `<div class="pdf-cover-logo-wrap pdf-cover-logo-wrap--top-center"><img class="pdf-cover-logo" src="${escapeHtml(logoUrl)}" alt="Read Me" /></div>`
     );
