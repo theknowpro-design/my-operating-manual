@@ -13,7 +13,8 @@ import Terms from './pages/legal/Terms.jsx'
 import Disclaimer from './pages/legal/Disclaimer.jsx'
 import RefundPolicy from './pages/legal/RefundPolicy.jsx'
 import './styles/global.css'
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import AccessGate from './AccessGate.jsx'
 
 // Pathname → component map for legal/help pages opened in new tabs.
 // Vite SPA mode falls back to index.html for unknown paths, so these
@@ -101,12 +102,17 @@ function AppViews() {
 }
 
 export default function App() {
-  // Serve legal/help pages when navigated to directly (e.g., via footer links in a new tab).
-  // Vite's SPA fallback serves index.html for all unknown paths, so this check runs on load.
+  const [unlocked, setUnlocked] = useState(false)
+
+  // Legal pages (opened in new tabs via footer) bypass the access gate.
   const pathname = window.location.pathname
   const LegalPage = LEGAL_ROUTES[pathname]
   if (LegalPage) {
     return <LegalPage />
+  }
+
+  if (!unlocked) {
+    return <AccessGate onUnlock={() => setUnlocked(true)} />
   }
 
   return (
