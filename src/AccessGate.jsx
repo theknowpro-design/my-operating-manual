@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./AccessGate.css";
 
 export default function AccessGate({ onUnlock }) {
   const [code, setCode] = useState("");
@@ -16,10 +17,10 @@ export default function AccessGate({ onUnlock }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white px-6">
-      <div className="max-w-md w-full text-center">
-        <h1 className="text-3xl font-bold mb-4">Access Required</h1>
-        <p className="mb-6">
+    <div className="access-gate">
+      <div className="access-gate__card">
+        <h1 className="access-gate__title">Access Required</h1>
+        <p className="access-gate__description">
           Enter the access code provided after your Gumroad purchase.
         </p>
 
@@ -29,14 +30,14 @@ export default function AccessGate({ onUnlock }) {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder="Enter access code"
-            className="w-full px-4 py-3 rounded mb-4 text-black"
+            className="access-gate__input"
           />
 
-          {error && <p className="text-red-400 mb-4">{error}</p>}
+          {error && <p className="access-gate__error">{error}</p>}
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded font-semibold"
+            className="access-gate__button"
           >
             Unlock Access
           </button>
@@ -44,7 +45,7 @@ export default function AccessGate({ onUnlock }) {
 
         <a
           href="https://mindfulinternetp.gumroad.com/l/myoperatingmanual"
-          className="inline-block mt-6 text-blue-300 underline"
+          className="access-gate__link"
         >
           Purchase Access
         </a>

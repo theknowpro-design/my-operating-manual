@@ -1,0 +1,67 @@
+.access-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-end) 100%);
+  color: var(--color-text);
+}
+
+.access-gate__card {
+  max-width: 28rem;
+  width: 100%;
+  text-align: center;
+}
+
+.access-gate__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  margin-bottom: 1rem;
+}
+
+.access-gate__description {
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.access-gate__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.access-gate__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.access-gate__error {
+  color: var(--color-error);
+  margin-bottom: 1rem;
+}
+
+.access-gate__button {
+  width: 100%;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-semibold);
+  border: none;
+  transition: background var(--transition-fast);
+}
+
+.access-gate__button:hover {
+  background: var(--color-accent-hover);
+}
+
+.access-gate__link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--color-accent);
+  text-decoration: underline;
+}
